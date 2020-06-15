@@ -13,7 +13,7 @@
 
 <body>
     <div class="header">
-        <a href="#" class="logo fl"><img src="images/logo.png" alt="logo"></a>
+        <a href="./index.html" class="logo fl"><img src="images/logo.png" alt="logo"></a>
         <div class="search_form fl">
             <input type="text" class="search_txt" placeholder="黑洞照片">
             <button class="search_btn"><i class="fa fa-search"></i></button>
@@ -39,12 +39,12 @@
                 </ul>
             </div>
             <ul class="left_menu fl">
-                <li><a href="#">最 新</a></li>
+                <!-- <li><a href="#">最 新</a></li>
                 <li><a href="#">科 技</a></li>
                 <li><a href="#">股 市</a></li>
                 <li><a href="#">商 品</a></li>
                 <li><a href="#">外 汇</a></li>
-                <li><a href="#">公 司</a></li>
+                <li><a href="#">公 司</a></li> -->
             </ul>
             <ul class="right_menu fr">
                 <li><a href="#">科技专题</a></li>
@@ -283,6 +283,13 @@
         {{/each}}
     </script>
 
+    <!-- 六2:所有的文章类别模板2 -->
+    <script id="category_temp2" type="text/html">
+        {{each data v}}
+        <li><a href="./list.html?id={{v.id}}">{{v.name}}</a></li>
+        {{/each}}
+    </script>
+
 
 
 
@@ -343,7 +350,7 @@
                 success: function (backData) {
                     var month = new Date().getMonth()+1; //当前的月份
                     backData.month = month;//添加到backData数据中
-                    console.log(backData);
+                    //console.log(backData);
                     var resHtml = template('latestcomment_temp',backData);
                     $('.comment_list').html(resHtml);
                 }
@@ -370,9 +377,35 @@
                     if(backData.code == 200){
                         var resHtml = template('category_temp',backData);
                         $('.level_two').html(resHtml);;
+                        //七.获取所有的文章类型2
+                        var resHtml2 = template('category_temp2',backData);
+                        $('.left_menu.fl').html(resHtml2);
                     }
                 }
             });
+
+            
+
+            //八.搜索文章
+            $('.search_btn').on('click',function(){
+                var searchTxt = $('.search_txt').val().trim();
+                if(searchTxt == ""){
+                    alert("搜索关键字为空!");
+                    return;
+                }else if(isNaN(parseInt(searchTxt)) == false){
+                    alert('搜索关键字为文本内容');
+                    return;
+                }else {
+                    window.location.href = "./list.html?searchTxt="+searchTxt;
+
+                }
+            });
+            //文本输入框设置键盘按下事件:回车
+            $('.search_txt').on('keydown',function(e){
+                if(e.keyCode == 13){
+                    $('.search_btn').click();
+                }
+            })
 
 
         });
