@@ -12,7 +12,7 @@ $(function () {
         else {
             $.ajax({
                 type: 'post',
-                url: 'http://localhost:8080/api/v1/admin/user/login',
+                url: BigNew.user_login,
                 data: {
                     username: name,
                     password: password,

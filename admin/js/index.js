@@ -7,7 +7,7 @@ $(function () {
 
     $.ajax({
         type: 'get',
-        url: 'http://localhost:8080/api/v1/admin/user/info',
+        url: BigNew.user_info,
         success: function (backData) {
             console.log(backData);
             $('.user_info img').attr('src', backData.data.userPic).next().find('i').text(backData.data.nickname);
