@@ -57,9 +57,64 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">提示</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
-  <script src="./libs/http.js"></script>
-  <script src="./js/login.js"></script>
+  <!-- <script src="./libs/http.js"></script>
+  <script src="./js/login.js"></script> -->
+  <script>
+    $(function () {
+      $('.input_sub').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var name = $('.input_txt').val().trim();
+        var password = $('.input_pass').val().trim();
+        if (name == '' || password == '') {
+          $("#myModal .modal-body").text("账号和密码不能为空!");
+          $("#myModal").modal();
+          return;
+        }
+        else {
+          $.ajax({
+            type: 'post',
+            url: 'http://localhost:8080/api/v1/admin/user/login',
+            data: {
+              username: name,
+              password: password,
+            },
+            success: function (backData) {
+              console.log(backData);
+              $("#myModal .modal-body").text(backData.msg);
+              $("#myModal").modal();
+              if (backData.code == 200) {
+                window.localStorage.setItem("token", backData.token);
+
+                //此事件在模态框被隐藏（并且同时在 CSS 过渡效果完成）之后被触发。
+                $("#myModal").on("hidden.bs.modal", function (e) {
+                  window.location.href = "./index.html";
+                });
+              }
+            },
+          });
+        }
+      });
+    })
+  </script>
 </body>
 
 </html>
