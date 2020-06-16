@@ -19,7 +19,6 @@ $(function () {
         $(this).addClass('active').siblings().removeClass('active');
     });
     $('.menu .level01:eq(1) a').on('click', function (e) {
-        console.log('1');
         $('.level02').slideToggle("slow");
         console.log($('.level01:eq(1) b').css('transform'));
 
@@ -32,6 +31,10 @@ $(function () {
             $('.level01:eq(1) b').css('transform', 'rotate(0deg)');
         }
 
+    });
+    $('.level02 li').on('click', function () {
+        $(this).find('span').css('color', 'orange');
+        $(this).siblings().find('span').css('color', '#fff');
     })
 
 })
