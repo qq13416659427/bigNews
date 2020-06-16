@@ -22,13 +22,16 @@ $(function () {
         $('.level02').slideToggle("slow");
         console.log($('.level01:eq(1) b').css('transform'));
 
+
         if ($('.level01:eq(1) b').attr('flag') == 1) {
             $('.level01:eq(1) b').css('transform', 'rotate(90deg)');
             $('.level01:eq(1) b').attr('flag', 0);
+            $('.level02 li').find('span').css('color', '#fff');
         }
         else {
             $('.level01:eq(1) b').attr('flag', 1);
             $('.level01:eq(1) b').css('transform', 'rotate(0deg)');
+            $('.level02 li:first').find('span').css('color', 'orange');
         }
 
     });
