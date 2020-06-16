@@ -14,4 +14,24 @@ $(function () {
             $('.user_center_link img').attr('src', backData.data.userPic);
         },
     });
+    $('.menu div').on('click', function (e) {
+        e.stopPropagation();
+        $(this).addClass('active').siblings().removeClass('active');
+    });
+    $('.menu .level01:eq(1) a').on('click', function (e) {
+        console.log('1');
+        $('.level02').slideToggle("slow");
+        console.log($('.level01:eq(1) b').css('transform'));
+
+        if ($('.level01:eq(1) b').attr('flag') == 1) {
+            $('.level01:eq(1) b').css('transform', 'rotate(90deg)');
+            $('.level01:eq(1) b').attr('flag', 0);
+        }
+        else {
+            $('.level01:eq(1) b').attr('flag', 1);
+            $('.level01:eq(1) b').css('transform', 'rotate(0deg)');
+        }
+
+    })
+
 })
